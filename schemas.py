@@ -65,3 +65,19 @@ class ProgressLogCreate(BaseModel):
     notes:                 Optional[str]   = None
     completed_exercises:   Optional[List[Any]] = None
     incompleted_exercises: Optional[List[Any]] = None
+    
+class WorkoutPlanCreate(BaseModel):
+    plan_name:        str
+    weekly_frequency: int
+    difficulty_level: str   # "Beginner" | "Intermediate" | "Expert"
+
+class WorkoutPlanResponse(BaseModel):
+    workout_plan_id:  int
+    plan_name:        str
+    version:          int
+    is_active:        bool
+    weekly_frequency: int
+    difficulty_level: str
+
+    class Config:
+        from_attributes = True
