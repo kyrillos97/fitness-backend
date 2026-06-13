@@ -23,6 +23,20 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
+
+class UserByEmailResponse(BaseModel):
+    user_id:       int
+    first_name:    str
+    last_name:     str
+    is_active:     bool
+    fitness_level: Optional[str]       = None
+    fitness_goals: Optional[List[str]] = None
+    height:        Optional[float]     = None
+    weight:        Optional[float]     = None
+
+    class Config:
+        from_attributes = True
+
 class DietPlanCreate(BaseModel):
     plan_name:             str
     daily_calories_target: float

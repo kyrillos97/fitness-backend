@@ -38,3 +38,18 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+@router.get("/by-email/{email}", response_model=UserByEmailResponse)
+def get_user_by_email(email: str, db: Session = Depends(get_db)):
+    # Step 1 — find email in emails table
+    email_row = db.query(Email).filter(Email.email == email).first()
+    if not email_row:
+        raise HTTPException(status_code=404, detail="Email not found")
+
+    # Step 2 — get the user using user_id from email row
+    user = db.query(User).filter(User.user_id == email_row.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return user
+
